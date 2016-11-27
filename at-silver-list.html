@@ -1,0 +1,132 @@
+<link rel="import" href="../tangere/tangere.html">
+<link rel="import" href="../at-core-activity/at-core-activity.html">
+<link rel="import" href="../at-core-view/at-core-view.html">
+
+<dom-module id="at-silver-list">
+
+  <style>
+    :host {
+      position: relative;
+      width: 100%;
+      display: block;
+    }
+
+  </style>
+
+  <template>
+    <at-core-activity id="app" on-response="bindAppInfo"></at-core-activity>
+    <at-core-activity id="activity" on-response="_bindItem" on-error="_activityError" indicator></at-core-activity>
+    <at-core-item id="item"></at-core-item>
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+    is: "at-silver-list",
+    properties: {
+      service: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      id: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      itemComponent: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      view: {
+        type: String,
+        value: "",
+        notify: true,
+        xtype: "code",
+        mode: "liquid"
+      },
+      value: {
+        type: Object,
+        notify: true,
+        value: null,
+        readOnly: true
+      }
+    },
+    $meta: [{
+      title: "Item",
+      type: "element",
+      xtype: "at-silver-item",
+      events: ["value-changed"],
+      stateProperties: ["id", "service"]
+    }],
+    observers: [
+      'start(id, service, itemComponent, view)'
+    ],
+
+    start: function () {
+
+      this.debounce('silver-item-start', function () {
+
+        if (!this.service) return;
+
+        var infoUrl = "/api/adenin.GateKeeper.Content/app/" + this.service;
+        if (infoUrl != this.$.app.url) {
+          this.$.app.url = infoUrl;
+          this.$.app.generateRequest();
+        }
+        
+        if(!this.id) return;
+        
+        if (this._id != this.id || this._service != this.service) {
+
+          this.$.activity.url = "/Activity/adenin.GateKeeper.Service/Proxy/" + this.service;
+          
+          if (this._id) {
+            // scroll to top if view changes
+            Polymer.signal("app-scroll-to-top");
+          }
+                     
+          this._id = this.id;
+          this._service = this.service;
+
+        }
+
+        if (this.view) {
+          this.$.item.itemComponent = "";
+          this.$.item.view = this.view;
+        } else {
+          this.$.item.view = "";
+          this.$.item.itemComponent = this.itemComponent;
+        }
+
+        this.$.activity.params = {
+          id: this.id
+        };
+        
+        this.$.activity.generateRequest();
+      }, 200);
+    },
+    
+    _activityError: function () {
+
+    },
+    
+    bindAppInfo: function () {
+      if (!!this.$.app.lastResponse.title) Polymer.signal("app-caption", this.$.app.lastResponse.title);  
+    },
+    
+    _bindItem: function () {
+
+      this._setValue(this.$.activity.lastResponse);
+
+      // bind item to response data
+      this.$.item.value = this.$.activity.lastResponse;
+
+    },    
+    ready: function () {
+
+    }
+  });
+</script>
