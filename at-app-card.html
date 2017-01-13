@@ -1,3 +1,4 @@
+<link rel="import" href="../tangere/tangere.html">
 <link rel="import" href="../at-core-view/at-core-view.html">
 <link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html">
 <link rel="import" href="../at-carbon-moment/at-carbon-moment.html">
@@ -70,7 +71,7 @@
       }
 
       .actionicon {
-        @apply(--layout-self-center);          
+        @apply(--layout-self-center);
         color: var(--at-action-color);
         width: var(--at-inline-icon-size);
         height: var(--at-inline-icon-size);
@@ -106,7 +107,7 @@
             <div class="content">
               <at-carbon-clamp lines="2">{{item.title}}</at-carbon-clamp>
               <div class="title">{{item.description}}</div>
-              <at-carbon-moment class="title" datetime="{{item.date}}" utc from-now auto-refresh-rate="10"></at-carbon-moment>            
+              <at-carbon-moment class="title" datetime="{{item.date}}" utc from-now auto-refresh-rate="10"></at-carbon-moment>
             </div>
             <at-carbon-avatar class="avatar" avatar="{{item.user}}"></at-carbon-avatar>
 
@@ -170,7 +171,7 @@
 
       if (!this.model) return;
 
-      
+
       this._model = this.model;
     }
   });
