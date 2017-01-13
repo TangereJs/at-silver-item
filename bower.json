@@ -3,13 +3,13 @@
   "version": "0.0.0.20",
   "private": true,
   "dependencies": {
-    "tangere": "TangereJs/tangere#0.8-preview",
-    "at-core-activity": "TangereJs/at-core-activity#0.8-preview",
-    "at-core-view": "TangereJs/at-core-view#0.8-preview",
-    "at-core-item": "TangereJs/at-core-item#0.8-preview",
-    "at-carbon-clamp": "TangereJs/at-carbon-clamp#0.8-preview",
-    "at-carbon-moment": "TangereJs/at-carbon-moment#0.8-preview",
-    "at-carbon-icon-color": "TangereJs/at-carbon-icon-color#0.8-preview",
-    "at-silver-list": "TangereJs/at-silver-list#0.8-preview"
+    "tangere": "TangereJs/tangere#master",
+    "at-core-activity": "TangereJs/at-core-activity#master",
+    "at-core-view": "TangereJs/at-core-view#master",
+    "at-core-item": "TangereJs/at-core-item#master",
+    "at-carbon-clamp": "TangereJs/at-carbon-clamp#master",
+    "at-carbon-moment": "TangereJs/at-carbon-moment#master",
+    "at-carbon-icon-color": "TangereJs/at-carbon-icon-color#master",
+    "at-silver-list": "TangereJs/at-silver-list#master"
   }
 }
