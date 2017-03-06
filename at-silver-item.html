@@ -58,6 +58,12 @@
         notify: true,
         value: null,
         readOnly: true
+      },
+      autoAppTitle: {
+        type: Boolean,
+        title: "Set item.title as app title",
+        value: false,
+        notify: true
       }
     },
     $meta: [{
@@ -68,7 +74,7 @@
       stateProperties: ["gid"]
     }],
     observers: [
-      'start(gid, url, itemComponent, view, service)'
+      'start(gid, url, itemComponent, view, service, autoAppTitle)'
     ],
 
     start: function () {
@@ -132,6 +138,11 @@
 
       // bind item to response data
       this.$.item.value = this.$.activity.lastResponse;
+
+      // set app title from item when enabled
+      if (this.autoAppTitle && this.$.item.value.title) {
+        Polymer.signal("app-caption", this.$.item.value.title);
+      }
 
     },    
     ready: function () {
